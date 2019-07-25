@@ -1,0 +1,6 @@
+ 
+# use the synthetic minority over-sampling technique (SMOTE) to 
+# resample the dataset to make the numbers of frauds and normal transactions even.
+
+from imblearn.over_sampling import SMOTE
+
