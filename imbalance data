@@ -5,4 +5,5 @@
 from imblearn.over_sampling import SMOTE
 # compare different classification algorithms
 from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, neural_network
+import xgboost as xgb
 
