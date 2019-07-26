@@ -1,7 +1,7 @@
  
 # use the synthetic minority over-sampling technique (SMOTE) to 
 # resample the dataset to make the numbers of frauds and normal transactions even.
-
+# install imbalanced learn package (imblearn)
 from imblearn.over_sampling import SMOTE
 # compare different classification algorithms
 from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, neural_network
