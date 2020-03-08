@@ -1,0 +1,25 @@
+import pickle
+filename = 'missing_treated.sav'
+pickle.dump(xg, open(filename, 'wb'))
+
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.predict_proba(df_valid[predictors1].values)[:,-1]
+print(result)
+pred=pd.DataFrame(result)
+pred.columns=['p_score']
+
+df_valid['ind']=range(1, len(df_valid) + 1)
+pred['ind']=range(1, len(pred) + 1)
+print(len(pred),len(df_valid))
+
+pred.p_score.describe()
+
+df_valid=pd.merge(df_valid,pred,how='left',on='ind')
+df_valid.groupby(['fraudflag']).p_score.describe()
+
+outsort=df_valid[df_valid['outsort']==1]
+print("AUC Score (outsort): %f" % metrics.roc_auc_score(outsort['fraudflag'], outsort['p_score']))
+que=df_valid[df_valid['queued']==1]
+print("AUC Score (queued): %f" % metrics.roc_auc_score(que['fraudflag'], que['p_score']))
+passed=df_valid[(df_valid['queued']==0)&(df_valid['autokilled']==0)]
+print("AUC Score (pass): %f" % metrics.roc_auc_score(passed['fraudflag'], passed['p_score']))
